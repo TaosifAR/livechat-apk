@@ -1,0 +1,47 @@
+name: livechat
+description: "A new Flutter project."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.7.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  get: ^4.7.2
+  firebase_core: ^3.13.0
+  firebase_auth: ^5.5.3
+  google_sign_in: ^6.3.0
+  cloud_firestore: ^5.6.8
+  cached_network_image: ^3.4.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^5.0.0
+  flutter_native_splash: ^2.4.6
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: lib/images/splash.png
+  android_gravity: center
+  android: true
+  ios: true
+  web: false
+
+  android_12:
+    color: "#ffffff"
+    image: lib/images/splash.png
+    icon_background_color: "#ffffff"
+    android_gravity: center
+
+
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - lib/images/
