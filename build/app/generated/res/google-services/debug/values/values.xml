@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">770052567604-avskqm067b0meutkbpf4oj0tp8jnhie5.apps.googleusercontent.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">770052567604</string>
+    <string name="google_api_key" translatable="false">AIzaSyDCV_kH3tIR7_Qs1rcmED2ty6ueh3ygC9U</string>
+    <string name="google_app_id" translatable="false">1:770052567604:android:0ac5fa91b43e9a043d1061</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDCV_kH3tIR7_Qs1rcmED2ty6ueh3ygC9U</string>
+    <string name="google_storage_bucket" translatable="false">live-chat-bc3e9.firebasestorage.app</string>
+    <string name="project_id" translatable="false">live-chat-bc3e9</string>
+</resources>

@@ -30,6 +30,8 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
 
+  final _formkey = GlobalKey<FormState>();
+
 
   @override
   Widget build(BuildContext context) {
@@ -52,162 +54,176 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
 
         body:
-        SingleChildScrollView(
-          child: Column(
+        Form(
+          key: _formkey,
+          child: SingleChildScrollView(
+            child: Column(
+            
+              children: [
+                SizedBox(
+                  height: 70,
+                  width: mq.width,
+                ),
+            
+                Center(
+                  child: Stack(
+                    children: [
+                       CircleAvatar(
           
-            children: [
-              SizedBox(
-                height: 70,
-                width: mq.width,
-              ),
+                        radius:radius,
           
-              Center(
-                child: Stack(
-                  children: [
-                     CircleAvatar(
-
-                      radius:radius,
-
-
-                      //child: Icon(CupertinoIcons.person),
-                      child: widget.user.image.isEmpty ? Icon(CupertinoIcons.person) :
-                      ClipOval(child: CachedNetworkImage(imageUrl: widget.user.image,
-                        fit: BoxFit.cover,
-                        width: mq.width *.4,
-                        height: mq.width *.4,
-                        placeholder: (context, url) => CircularProgressIndicator(),
-                        errorWidget: (context, url, error) => Icon(Icons.error),
+          
+                        //child: Icon(CupertinoIcons.person),
+                        child: widget.user.image.isEmpty ? Icon(CupertinoIcons.person) :
+                        ClipOval(child: CachedNetworkImage(imageUrl: widget.user.image,
+                          fit: BoxFit.cover,
+                          width: mq.width *.4,
+                          height: mq.width *.4,
+                          placeholder: (context, url) => CircularProgressIndicator(),
+                          errorWidget: (context, url, error) => Icon(Icons.error),
+                        ),
+          
+                        ),
                       ),
-
-                      ),
-                    ),
-                    Positioned(
-                      bottom: 0,
-                      left: radius *1.2,
-                      child: MaterialButton(onPressed: (){},
-                      
-                      child: Icon(Icons.edit,color: Color(0xFF12B560) ,),
-                        color: Colors.white,
-                        shape: CircleBorder(),
-
+                      Positioned(
+                        bottom: 0,
+                        left: radius *1.2,
+                        child: MaterialButton(onPressed: (){},
+                        
+                        child: Icon(Icons.edit,color: Color(0xFF12B560) ,),
+                          color: Colors.white,
+                          shape: CircleBorder(),
+          
+                        )
                       )
-                    )
-                  ],
-                 
+                    ],
+                   
+                  ),
+            
+            
                 ),
+                SizedBox(
+                  height: 20,
+                  width: mq.width,
+                ),
+                Center(child: Text(widget.user.email,style: TextStyle(fontSize: mq.width*.040,fontWeight: FontWeight.bold),)),
+            
+                Padding(
+                  padding: const EdgeInsets.all(40.0),
+                  child: TextFormField(
+                    initialValue: widget.user.name,
+                    onSaved: (val)=> APIs.me.about = val ?? '',
+                    validator: (val)=> val!= null && val.isNotEmpty ? null: 'Required field.' ,
+            
+                    decoration: InputDecoration(
+                      // Normal border (when not focused)
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
           
+                      ),
           
-              ),
-              SizedBox(
-                height: 20,
-                width: mq.width,
-              ),
-              Center(child: Text(widget.user.email,style: TextStyle(fontSize: mq.width*.040,fontWeight: FontWeight.bold),)),
+                      // Focused border (when you tap the field)
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Color(0xFF12B560), width: 2.5),
+                      ),
           
-              Padding(
-                padding: const EdgeInsets.all(40.0),
-                child: TextFormField(
-                  initialValue: widget.user.name,
-          
-                  decoration: InputDecoration(
-                    // Normal border (when not focused)
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-
+                      // Optional: If error occurs
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.red, width: 2.0),
+                      ),
+                      prefixIcon: Icon(CupertinoIcons.person,color: Color(0xFF12B560),),
+                      label: Text('Name',style: TextStyle(color: Color(0xFF12B560)),),
+                      hintText: 'eg: Alex Xender',
                     ),
-
-                    // Focused border (when you tap the field)
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Color(0xFF12B560), width: 2.5),
-                    ),
-
-                    // Optional: If error occurs
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.red, width: 2.0),
-                    ),
-                    prefixIcon: Icon(CupertinoIcons.person,color: Color(0xFF12B560),),
-                    label: Text('Name',style: TextStyle(color: Color(0xFF12B560)),),
-                    hintText: 'eg: Alex Xender',
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 40),
-                child: TextFormField(
-                  initialValue: widget.user.about,
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 10,horizontal: 40),
+                  child: TextFormField(
+                    initialValue: widget.user.about,
+                    onSaved: (val)=> APIs.me.name = val ?? '',
+                    validator: (val)=> val!= null && val.isNotEmpty ? null: 'Required field.' ,
+            
+                    decoration: InputDecoration(
+                      // Normal border (when not focused)
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
           
-                  decoration: InputDecoration(
-                    // Normal border (when not focused)
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-
+                      ),
+          
+                      // Focused border (when you tap the field)
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Color(0xFF12B560), width: 2.5),
+                      ),
+          
+                      // Optional: If error occurs
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.red, width: 2.0),
+                      ),
+                      prefixIcon: Icon(CupertinoIcons.pen,color: Color(0xFF12B560)),
+                      label: Text('About',style: TextStyle(color: Color(0xFF12B560)),),
+                      hintText: 'eg: Feeling Happy!',
                     ),
-
-                    // Focused border (when you tap the field)
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Color(0xFF12B560), width: 2.5),
-                    ),
-
-                    // Optional: If error occurs
-                    errorBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.red, width: 2.0),
-                    ),
-                    prefixIcon: Icon(CupertinoIcons.pen,color: Color(0xFF12B560)),
-                    label: Text('About',style: TextStyle(color: Color(0xFF12B560)),),
-                    hintText: 'eg: Feeling Happy!',
                   ),
+          
                 ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+                  child: ElevatedButton.icon(onPressed:() {
 
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 0),
-                child: ElevatedButton.icon(onPressed:() {
+                    if(_formkey.currentState!.validate())
+                      {
+                        _formkey.currentState!.save();
+                        APIs.updateUserdata();
 
-
-                } ,
-                    style: ElevatedButton.styleFrom(
-                     minimumSize: Size(mq.width*.5,mq.width*.130),
-                      backgroundColor: Color(0xFF12B560)
-                    ),
-                    icon:Icon(Icons.system_update_tv_rounded,color: Colors.white,), label: Text('Update',style:TextStyle(color: Colors.white),)),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 0),
-                child: ElevatedButton.icon(onPressed:() async{
-
-                  Dialogs.showprogressbar(context);
-
-                  await FirebaseAuth.instance.signOut().then((value) async{
-                  await GoogleSignIn().signOut().then((value){
-                  // for hiding progressbar.
-                    Navigator.pop(context);
-
-                    //for moving homescreen.
-                    Navigator.pop(context);
-
-                  pagereplacement(context, Loginscreen());
-
-                  });
-                  });
-                  Dialogs.showsnackbar(context,'Logged out succesfully.');
-
-
-
-
-                } ,
-                    style: ElevatedButton.styleFrom(
-                        minimumSize: Size(mq.width*.5,mq.width*.130),
-                        backgroundColor: Color(0xFF5BC9E8)
-                    ),
-                    icon:Icon(Icons.logout,color: Colors.white,), label: Text('Logout',style:TextStyle(color: Colors.white),)),
-              )
+                      }
           
           
-            ],
+                  } ,
+                      style: ElevatedButton.styleFrom(
+                       minimumSize: Size(mq.width*.5,mq.width*.130),
+                        backgroundColor: Color(0xFF12B560)
+                      ),
+                      icon:Icon(Icons.system_update_tv_rounded,color: Colors.white,), label: Text('Update',style:TextStyle(color: Colors.white),)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 20,horizontal: 0),
+                  child: ElevatedButton.icon(onPressed:() async{
+          
+                    Dialogs.showprogressbar(context);
+          
+                    await FirebaseAuth.instance.signOut().then((value) async{
+                    await GoogleSignIn().signOut().then((value) async {
+                    // for hiding progressbar.
+                      Navigator.pop(context);
+                      await Future.delayed(Duration(milliseconds: 100)); // wait a bit
+          
+
+          
+                    pagereplacement(context, Loginscreen());
+          
+                    });
+                    });
+                    Dialogs.showsnackbar(context,'Logged out succesfully.');
+          
+          
+          
+          
+                  } ,
+                      style: ElevatedButton.styleFrom(
+                          minimumSize: Size(mq.width*.5,mq.width*.130),
+                          backgroundColor: Color(0xFF5BC9E8)
+                      ),
+                      icon:Icon(Icons.logout,color: Colors.white,), label: Text('Logout',style:TextStyle(color: Colors.white),)),
+                )
+            
+            
+              ],
+            ),
           ),
         )
 
